@@ -8,16 +8,15 @@ import (
 
 func Launch() {
 	port := os.Getenv("PORT")
-
 	if port == "" {
 		port = ":66502"
 	}
-
+	// Initialize gin server with default configuration
 	router := gin.Default()
-
-	err := router.Run()
-
-	if err != nil {
+	// Set up principal router to used in server
+	Router(router)
+	// If an discret error was occured on launch stop execution with error
+	if err := router.Run(); err != nil {
 		panic("[Error] failed to start Gin server due to: " + err.Error())
 	}
 }
