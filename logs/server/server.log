@@ -1,0 +1,6 @@
+2025-09-01T20:14:07.330+0200	info	Logs middleware initialized !
+2025-09-01T20:18:17.642+0200	info	Logs middleware initialization
+2025-09-01T20:18:17.689+0200	info	Initialization of Gin server...
+2025-09-01T20:18:17.689+0200	info	Initialization of Gin server completed.
+2025-09-01T20:18:17.689+0200	info	Initialization of Router...
+2025-09-01T20:18:17.689+0200	info	Initialization of Router completed.

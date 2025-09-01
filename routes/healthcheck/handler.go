@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func HealthcheckGetHandler(c *gin.Context) {
+func HealthcheckHandler(c *gin.Context) {
 	// Check if has discret error
 	if c.Request.Context().Err() != nil {
 		c.String(500, "Internal Server Error")
