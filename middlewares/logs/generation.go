@@ -15,24 +15,26 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func createLogDirectory() {
+func createLogDirectory() error {
 	if _, err := os.Stat("logs"); os.IsNotExist(err) {
 		mkdirErr := os.Mkdir("logs", 0755)
 		if mkdirErr != nil {
-			println("Failed to create directory: ", err.Error())
+			return mkdirErr
 		}
 	}
+	return nil
 }
 
-func createLoggerDirectories() {
+func createLoggerDirectories() error {
 	// For all loggers paths create associated directory
 	for _, path := range logsDirectoriesPaths {
 		dir := filepath.Dir(path)
 		err := os.MkdirAll(dir, 0755)
 		if err != nil {
-			println("Failed dto create log directory:", dir, err.Error())
+			return err
 		}
 	}
+	return nil
 }
 
 func CreateLoggerFile(category types.LogCategory) zapcore.Core {
