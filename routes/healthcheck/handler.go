@@ -1,9 +1,15 @@
 package healthcheck
 
+/*
+ * Healthcheck handler for the API server.
+ * This file contains the HealthcheckHandler function, which responds to healthcheck requests.
+ */
+
 import (
 	"github.com/gin-gonic/gin"
 )
 
+// HealthcheckHandler responds to healthcheck request
 func HealthcheckHandler(c *gin.Context) {
 	// Check if has discret error
 	if c.Request.Context().Err() != nil {
@@ -18,23 +24,3 @@ func HealthcheckHandler(c *gin.Context) {
 	// If method is valid return status 200 else return error
 	c.String(200, "Healthcheck ok")
 }
-
-// LOGIC WITHOUT GIN
-
-// // Check if has discret error
-// if err := request.Context().Err(); err != nil {
-// 	response.WriteHeader(http.StatusInternalServerError)
-// }
-
-// // Check HTTP method used to call this handler else return status error 405
-// if request.Method != http.MethodGet {
-// 	response.WriteHeader(http.StatusMethodNotAllowed)
-// 	_, _ = response.Write([]byte("Method Not Allowed"))
-// 	return
-// }
-
-// // If method is valid return status 200 else return error
-// response.WriteHeader(http.StatusOK)
-// if _, err := response.Write([]byte("Healthcheck ok")); err != nil {
-// 	fmt.Printf("Healthcheck failed: %v\n", err)
-// }

@@ -7,5 +7,5 @@ import (
 
 func main() {
 	godotenv.Load()
-	server.Launch()
+	server.Run()
 }
