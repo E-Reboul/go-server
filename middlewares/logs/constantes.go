@@ -18,7 +18,6 @@ const (
 	HealthcheckCategory types.LogCategory = "healthcheck"
 )
 
-// All logs folders
 func getLogsCategoriesPaths() map[types.LogCategory]string {
 	return map[types.LogCategory]string{
 		HealthcheckCategory: filepath.Join("logs", string(HealthcheckCategory), string(HealthcheckCategory)+".log"),
