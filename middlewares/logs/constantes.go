@@ -19,9 +19,11 @@ const (
 )
 
 // All logs folders
-var logsDirectoriesPaths = map[types.LogCategory]string{
-	HealthcheckCategory: filepath.Join("logs", string(HealthcheckCategory), string(HealthcheckCategory)+".log"),
-	ServerCategory:      filepath.Join("logs", string(ServerCategory), string(ServerCategory)+".log"),
+func getLogsCategoriesPaths() map[types.LogCategory]string {
+	return map[types.LogCategory]string{
+		HealthcheckCategory: filepath.Join("logs", string(HealthcheckCategory), string(HealthcheckCategory)+".log"),
+		ServerCategory:      filepath.Join("logs", string(ServerCategory), string(ServerCategory)+".log"),
+	}
 }
 
 // Logger at category
