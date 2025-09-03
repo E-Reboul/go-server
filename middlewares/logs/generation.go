@@ -37,7 +37,7 @@ func CreateLoggersDirectories(logsPaths map[types.LogCategory]string) error {
 	return nil
 }
 
-func CreateLoggerFile(category types.LogCategory) zapcore.Core {
+func CreateLoggerFileOutput(category types.LogCategory) zapcore.Core {
 	// Get the log file path for the given category
 	logsPaths := getLogsCategoriesPaths()
 	path := logsPaths[category]
@@ -61,7 +61,7 @@ func CreateLoggerFile(category types.LogCategory) zapcore.Core {
 
 func CreateAllLoggersFiles(paths map[types.LogCategory]string) {
 	for category := range paths {
-		core := CreateLoggerFile(category)
+		core := CreateLoggerFileOutput(category)
 		logger := zap.New(core)
 		Loggers[category] = logger
 	}

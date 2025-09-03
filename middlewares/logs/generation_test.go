@@ -61,7 +61,7 @@ func TestCreateLoggerFile(t *testing.T) {
 
 	for category, path := range loggersPaths {
 		_ = os.Remove(path)
-		_ = CreateLoggerFile(category)
+		_ = CreateLoggerFileOutput(category)
 		if _, err := os.Stat(path); os.IsNotExist(err) {
 			t.Errorf("Logger file for category %s was not created.", category)
 		}

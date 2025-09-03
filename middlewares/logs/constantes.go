@@ -25,5 +25,4 @@ func getLogsCategoriesPaths() map[types.LogCategory]string {
 	}
 }
 
-// Logger at category
 var Loggers = map[types.LogCategory]*zap.Logger{}
