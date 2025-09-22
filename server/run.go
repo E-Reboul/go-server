@@ -25,7 +25,7 @@ func Run() {
 	  ===========
 	*/
 
-	logs.LoadLogger()
+	logs.InitializeLoggers()
 	logs.WriteInfo(logs.ServerCategory, "Initialization of Logs middleware completed.")
 
 	/*

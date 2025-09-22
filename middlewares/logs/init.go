@@ -5,18 +5,16 @@ package logs
  * This file contains functions to initialize and close loggers.
  */
 
-import (
-	"go.uber.org/zap"
-)
-
-func LoadLogger() {
-	createLogDirectory()
-	createLoggerDirectories()
-	for category := range logsDirectoriesPaths {
-		core := CreateLoggerFile(category)
-		logger := zap.New(core)
-		Loggers[category] = logger
+func InitializeLoggers() error {
+	logsPaths := getLogsCategoriesPaths()
+	if err := CreateLogDirectory("logs"); err != nil {
+		return err
 	}
+	if err := CreateLoggersDirectories(logsPaths); err != nil {
+		return err
+	}
+	CreateAllLoggersFiles(logsPaths)
+	return nil
 }
 
 // Ferme tous les loggers (flush)

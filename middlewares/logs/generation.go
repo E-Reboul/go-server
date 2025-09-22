@@ -15,29 +15,32 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func createLogDirectory() {
-	if _, err := os.Stat("logs"); os.IsNotExist(err) {
-		mkdirErr := os.Mkdir("logs", 0755)
+func CreateLogDirectory(path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		mkdirErr := os.Mkdir(path, 0755)
 		if mkdirErr != nil {
-			println("Failed to create directory: ", err.Error())
+			return mkdirErr
 		}
 	}
+	return nil
 }
 
-func createLoggerDirectories() {
+func CreateLoggersDirectories(logsPaths map[types.LogCategory]string) error {
 	// For all loggers paths create associated directory
-	for _, path := range logsDirectoriesPaths {
+	for _, path := range logsPaths {
 		dir := filepath.Dir(path)
 		err := os.MkdirAll(dir, 0755)
 		if err != nil {
-			println("Failed dto create log directory:", dir, err.Error())
+			return err
 		}
 	}
+	return nil
 }
 
-func CreateLoggerFile(category types.LogCategory) zapcore.Core {
+func CreateLoggerFileOutput(category types.LogCategory) zapcore.Core {
 	// Get the log file path for the given category
-	path := logsDirectoriesPaths[category]
+	logsPaths := getLogsCategoriesPaths()
+	path := logsPaths[category]
 	// Initialize zap encoder configuration
 	cfg := zap.NewProductionEncoderConfig()
 	// Set the time field format to timestamp
@@ -54,4 +57,12 @@ func CreateLoggerFile(category types.LogCategory) zapcore.Core {
 	}
 	// Otherwise, write logs to the file
 	return zapcore.NewCore(encoder, zapcore.AddSync(file), zap.DebugLevel)
+}
+
+func CreateAllLoggersFiles(paths map[types.LogCategory]string) {
+	for category := range paths {
+		core := CreateLoggerFileOutput(category)
+		logger := zap.New(core)
+		Loggers[category] = logger
+	}
 }
